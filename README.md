@@ -26,18 +26,18 @@
 
 ### Other preparation
 
-### Patch
+#### Patch
 
 dkpt: pcap.py
  * dpkt_remove_seek
 to enable dpkt to read from pipes
  * Search via google to get patch 
 
-### Certificates
+#### Certificates
 
 Place server certificates into /src/cert (.key and .pem)
 
-### Configuration File
+#### Configuration File
 
 Rename app_example.ini into app.ini. Adapt if needed.
 
