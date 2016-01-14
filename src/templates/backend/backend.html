@@ -1,0 +1,73 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-success">
+	<div class="panel-heading"><h3>Welcome to the applications Backend. </h3></div>
+	<div class="panel-body">
+    		You can either work with existing collections or generate new collections using file upload.
+
+			<h4>Using existing Collections</h4>
+
+			<dl class="dl-horizontal">
+				<dt>Choose Collection</dt>
+			  	<dd>
+Choose an existing collection in the database and explore the specific data in the application.
+				</dd>
+				<dt>Edit Collection</dt>
+			  	<dd>
+Edit Metadata of an existing Database Collection.
+				</dd>
+				<dt>Explore Collection</dt>
+			  	<dd>
+Explore Metadata of an existing Database Collection.
+				</dd>
+				<dt>Remove Collection</dt>
+			  	<dd>
+Remove existing Collections from servers internal database.
+				</dd>
+			</dl>
+
+			<h4>Create new Collections</h4>
+
+			<dl class="dl-horizontal">
+				<dt>Upload Files</dt>
+			  	<dd>
+Before creating a new collection, a trace in pcap format has to be uploaded to the server.
+				</dd>
+				<dt>Remove Files</dt>
+			  	<dd>
+Remove existing pcap-files from the server in case they are not needed anymore.
+				</dd>
+				<dt>Store Collection</dt>
+			  	<dd>
+Select an uploaded pcap file an load it into the database. Afterwards edit the collections metadata.
+				</dd>
+			</dl>
+
+			<h4>Real-Time Monitoring</h4>
+
+			<dl class="dl-horizontal">
+				<dt>Local Monitoring</dt>
+			  	<dd>
+Choose a local interface to monitor on. Please be sure that this interface is configured appropriately.
+				</dd>
+				<dt>Remote Monitoring</dt>
+			  	<dd>
+Choose a configured Remote Connection to monitor. The Remote Machine needs a key to authenticate the server. Please refer ssh-keygen and ssh-copy-id.
+				</dd>
+				<dt>Configure Connections</dt>
+			  	<dd>
+Configure, List and Delete available Remote Connections. Key distribution is NOT included.
+				</dd>
+				<dt>Status and Management</dt>
+			  	<dd>
+Explore running monitoring tasks, including canceling or deleting a task. This information is not available after Server Reboot.
+				</dd>
+			</dl>
+
+
+  	</div>
+  	<div class="panel-footer">Returning back to Instructions will give an overview of existings functionality.</div>
+</div>
+
+
+{% endblock %}

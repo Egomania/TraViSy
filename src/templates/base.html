@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style  type="text/css">
+
+.node {
+	stroke: #fff;
+	stroke-width: 1.5px;
+}
+
+.link {
+	stroke: #999;
+	stroke-opacity: .6;
+}
+
+.chord {
+	fill-opacity: .67;
+}
+
+#circle circle {
+	fill: none;
+	pointer-events: all;
+}
+
+.group path {
+	fill-opacity: .5;
+}
+
+path.chord {
+	stroke: #000;
+	stroke-width: .25px;
+}
+
+#circle:hover path.fadechord {
+	display: none;
+}
+
+.bar {
+	fill: steelblue;
+}
+
+.axis {
+	font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	display: none;
+}
+
+.bar:hover {
+	fill: skyblue;
+}
+
+sup, sub {
+	line-height: 0;
+}
+
+.d3-tip {
+	line-height: 1;
+	font-weight: bold;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+	box-sizing: border-box;
+	display: inline;
+	font-size: 10px;
+	width: 100%;
+	line-height: 1;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\25BC";
+	position: absolute;
+	text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+	margin: -1px 0 0 0;
+	top: 100%;
+	left: 0;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+</style>
+
+<head>
+<link rel="stylesheet" href="./static/lib/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="./static/lib/css/keen-dashboards.css" type="text/css">
+
+
+<script src="./static/lib/js/jquery.min.js"></script>
+<script src="./static/lib/js/bootstrap.min.js"></script>
+<script src="./static/lib/js/queue.js"></script>
+
+<script src="./static/lib/js/d3.js"></script>
+
+<script src="./static/js/helper.js"></script>
+
+
+
+</head>
+<body class="application">
+
+
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<a class="navbar-brand navbar-right" href="./backend">Admin</a>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./">Home</a>
+				<a class="navbar-brand" href="./ethernet">Ethernet Dashboard</a>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IP Dashboard <span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+            						<li><a href="./ip">Main Dashboard</a></li>
+            						<li><a href="./ipGraphs">Graphs</a></li>
+          					</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TCP/UDP Dashboard<span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+            						<li><a href="./tcp_udp">Main Dashboard</a></li>
+            						<li><a href="./tcpGraphs">Extended Graph</a></li>
+          					</ul>
+					</li>
+				</ul>
+				
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bacnet Dashboard <span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+						    <li><a href="./bacnet">Main Dashboard</a></li>
+						    <li><a href="./bacnetSpec">VIS Communication Relations</a></li>
+         		 			</ul>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+
+
+	
+	{% block content %}{% endblock %}
+		
+
+	
+
+
+
+</body>

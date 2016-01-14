@@ -1,0 +1,13 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<div class="well">Successfully {{ action }} {{ itemType }} : {{ itemName }}</div>
+
+<div class="well">
+	Stats: </br>
+
+	{%for stat in stats%}
+		{{ stat[0] }} : {{ stat[1] }}</br>
+	{%endfor%}
+</div>
+
+{% endblock %}

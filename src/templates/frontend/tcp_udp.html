@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- MAIN related stuff -->
+<script src="./static/lib/js/d3.tip.v0.6.3.js"></script>
+<script src="./static/lib/js/legend.js"></script>
+<script src="./static/js/chart.js"></script>
+
+<!-- VIS related stuff -->
+<script src='./static/lib/js/vis.min.js' type='text/javascript'></script>
+<link href="./static/lib/css/vis.min.css" rel="stylesheet" type="text/css" />
+
+<script src='./static/js/visGraph.js' type='text/javascript'></script>
+
+<!-- LOCAL related stuff -->
+<script src='./static/js/transportChart.js' type='text/javascript'></script>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 1000px;
+            height: 600px;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+<div class="container-fluid">
+
+			<div class="col-xs-6">
+			<div class="chart-wrapper">
+				<div class="chart-title">Open Source-Ports - Distribution</div>
+				<div class="chart-stage">
+					<div id=distribution-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						This Sunburst-Chart show the source Port Distribution.</br>	
+					</p>
+					<p>
+						
+						<div class="row">
+
+						<div class="col-sm-6">
+						
+							<div class="checkbox">
+  								<label><input type="radio" name="mode" value="size">Size</label>
+							</div>
+							
+							<div class="checkbox">
+							  <label><input type="radio" name="mode" value="count">Count</label>
+							</div>
+
+							<div class="checkbox">
+							  <label><input type="radio" name="mode" value="norm">Normalize</label>
+							</div>
+						
+						</div>
+						
+						<div class="col-sm-6">
+							<p>
+						
+								<button class="btn btn-default" type="button" onclick="export_svg('distribution-chart', 'svg')">Export as svg</button>
+								<button class="btn btn-default" type="button" onclick="export_svg('distribution-chart', 'pdf')">Export as pdf</button>
+								<button class="btn btn-default" type="button" onclick="export_svg('distribution-chart', 'png')">Export as png</button>
+							</p>
+						</div>
+						
+					</div>
+					</p>
+				</div>
+
+			</div>
+		</div>
+
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="chart-wrapper">
+				<div class="chart-title">Transport Layer - Connections</div>
+				<div class="chart-stage">
+					<div id=graph-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						This graphs show all IP's with corresponding open ports.</br>
+						The communication is shown between the ports.	
+					</p>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('graph-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('graph-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('graph-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+
+			</div>
+		</div>
+
+
+	<!- end row -->
+	</div>
+
+</div>
+
+
+{% endblock %}

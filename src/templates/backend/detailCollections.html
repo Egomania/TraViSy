@@ -1,0 +1,52 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<!-- MAIN related stuff -->
+<script src="./static/lib/js/d3.tip.v0.6.3.js"></script>
+<script src="./static/lib/js/legend.js"></script>
+<script src="./static/js/chart.js"></script>
+
+<!-- LOCAL related stuff -->
+<script src='./static/js/backend.js' type='text/javascript'></script> 
+
+<div class="panel panel-info">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Detailed Information of loaded Collection</h3>
+	</div>
+
+	<div class="panel-body">
+
+	
+		<dl>
+
+		{% for stat in stats %}
+			<dt>{{ stat[0] }}</dt>
+			<dd>{{ stat[1] }}</dd>
+		{% endfor %}
+
+		</dl>
+
+
+		<div class="chart-wrapper">
+				<div class="chart-title">Paket Distribution</div>
+				<div class="chart-stage">
+					<div id=bar-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						This <b>Bar Chart</b> shows the Paket Distribution.</br>
+						Hovering over elements shows more detailed information. 
+					<p>
+				</div>
+			</div>
+
+  	</div>
+
+  	<div class="panel-footer">
+		Gives a general overview of the loaded Collection.
+	</div>
+
+</div>
+
+
+{% endblock %}

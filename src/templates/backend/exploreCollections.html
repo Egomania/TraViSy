@@ -1,0 +1,37 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<!-- BootstrapTABLE related stuff -->
+<link rel="stylesheet" href="./static/lib/css/bootstrap-table.css" type="text/css">
+<script src="./static/lib/js/bootstrap-table.js"></script>
+
+<div class="panel panel-info">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">List of existing collections</h3>
+	</div>
+
+	<div class="panel-body">
+
+		<table id="ownTable" data-toggle="table" classes="table table-hover table-condensed" data-url="./collectionsDescription" data-cache="false" data-sort-name="id" data-sort-order="desc" data-show-columns="true" data-id-field="id" data-show-refresh="true" data-show-toggle="true" data-search="true">
+
+			<thead>
+				<th data-field="id" data-sortable="true" data-switchable="false">ID</th>
+				<th data-field="name" data-sortable="true" data-switchable="false">Name</th>
+				<th data-field="owner" data-sortable="true">Owner</th>
+				<th data-field="start" data-sortable="true">Start</th>
+				<th data-field="ende" data-sortable="true">Ende</th>
+				<th data-field="location" data-sortable="true">Standort</th>
+				<th data-field="descr">Beschreibung</th>
+			</thead>
+
+		</table>
+
+  	</div>
+
+  	<div class="panel-footer">
+		Explore available collections in this section using different sort methods.
+	</div>
+
+</div>
+
+{% endblock %}

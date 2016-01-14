@@ -1,0 +1,50 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-danger">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Realtime Monitoring</h3>
+	</div>
+
+	<div class="panel-body">
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+	
+		{% for interface in interfaces %}
+
+			<div class="radio">
+	  		<label>
+	    			<input type="radio" name="interface" value="{{ interface }}">
+	    			{{ interface }}
+	  		</label>
+			</div>
+		{% endfor %}	
+	
+		<div class="form-group">
+			<label for="timer">Timer</label>
+			<input type="text" class="form-control" id="timer" name="timer">
+		</div>
+
+		<div class="form-group">
+			<label for="counter">Paket Counter</label>
+			<input type="text" class="form-control" id="counter" name="counter">
+		</div>
+
+		<div class="form-group">
+			<label for="collection">Collection Name</label>
+			<input type="text" class="form-control" id="collection" name="collection">
+		</div>
+
+		<button type="submit" class="btn btn-default">Start Monitoring</button>
+
+	</form>
+
+  	</div>
+
+  	<div class="panel-footer">
+		Configure and Perform Realtime Capturing and Monitoring	</div>
+
+</div>
+
+
+{% endblock %}

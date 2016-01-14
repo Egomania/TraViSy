@@ -1,0 +1,81 @@
+{% extends "backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-info">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Edit existing collections</h3>
+	</div>
+
+	<div class="panel-body">
+
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+			{%for collection in collections%}
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="{{ collection.name }}_heading">
+      				<h4 class="panel-title">
+        			<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ collection.name }}" aria-expanded="true" aria-controls="{{ collection.name }}">
+          			{{ collection.name }}
+        			</a>
+      				</h4>
+    				</div>	
+
+
+				<div id="{{ collection.name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ collection.name }}_heading">
+      				<div class="panel-body">
+
+					<form method="POST" style="width:100%; position:relative; border-collapse: separate" id="{{ collection.name }}" name="{{ collection.name }}">
+						<div class="form-group">
+    							<label for="Name">Name</label>
+    								<input type="text" class="form-control" id="Owner" placeholder="{{ collection.name }}" name="Name" value="{{ collection.name }}" readonly="readonly">
+  						</div> 
+						
+						<div class="form-group">
+    							<label for="Id">ID</label>
+    								<input type="text" class="form-control" id="Owner" placeholder="{{ collection._id }}" name="Id" value="{{ collection._id }}" readonly="readonly">
+  						</div> 
+
+						<div class="form-group">
+    							<label for="Owner">Owner</label>
+    								<input type="text" class="form-control" id="Owner" placeholder="{{ collection.owner }}" name="Owner">
+  						</div>
+						<div class="form-group">
+						    	<label for="Description">Description</label>
+						    	<input type="text" class="form-control" id="Description" placeholder="{{ collection.descr }}" name="Description">
+						</div>
+						<div class="form-group">
+						    	<label for="Description">Capture Start</label>
+						    	<input type="text" class="form-control" id="Start" placeholder="{{ collection.start }}" name="Start">
+						</div>
+						<div class="form-group">
+						    	<label for="Description">Capture Ende</label>
+						    	<input type="text" class="form-control" id="Ende" placeholder="{{ collection.ende }}" name="Ende">
+						</div>
+						<div class="form-group">
+						    	<label for="Description">Location</label>
+						    	<input type="text" class="form-control" id="Location" placeholder="{{ collection.location }}" name="Location">
+						</div>
+						
+						<button type="submit" class="btn btn-default">Update</button>
+
+					</form>
+
+				</div>
+				</div>
+
+			</div>
+			{%endfor%}
+
+		</div>
+
+
+  	</div>
+
+  	<div class="panel-footer">
+		Select a Collection to edit and fill in available fields.
+	</div>
+
+</div>
+
+
+{% endblock %}

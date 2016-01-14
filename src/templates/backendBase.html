@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block content %}
+<style>
+.alert-own {
+    color: #FFCC99;
+    background-color: #FFE5CC;
+    border-color: #FFCC99;
+}
+.alert-own hr {
+  border-top-color: #FF8000;
+}
+.alert-own .alert-link {
+  color: #FF8000;
+}
+.panel-own {
+  border-color: #FFCC99;
+}
+.panel-own > .panel-heading {
+  color: #FF8000;
+  background-color: #FFE5CC;
+  border-color: #FFCC99;
+}
+.panel-own > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #FF8000;
+}
+.panel-own > .panel-heading .badge {
+  color: #FFCC99;
+  background-color: #FFE5CC;
+}
+.panel-own > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #FF8000;
+}
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-4">
+		<div class="row">
+
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-success" role="alert">
+  				<a href="./backend" class="alert-link">Instructions</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-info" role="alert">
+  				<a href="./listCollections" class="alert-link">Choose Database Collection</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-info" role="alert">
+  				<a href="./exploreCollections" class="alert-link">Explore Database Collection</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-info" role="alert">
+  				<a href="./detailCollections" class="alert-link">Collection Details</a>
+				</div>
+			</div>
+  			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-info" role="alert">
+  				<a href="./editCollections" class="alert-link">Edit Database Collection</a>
+				</div>
+			</div>
+  			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-info" role="alert">
+  				<a href="./deleteCollections" class="alert-link">Remove Database Collection</a>
+				</div>
+			</div>
+  			
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-warning" role="alert">
+  				<a href="./uploadFiles" class="alert-link">Upload Files</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8">
+				<div class="alert alert-warning" role="alert">
+  				<a href="./removeFiles" class="alert-link">Remove Files</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-warning" role="alert">
+  				<a href="./storeFiles" class="alert-link">Store Database Collection</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-warning" role="alert">
+  				<a href="./storeFilesCelery" class="alert-link">Store Collection Celery</a>
+				</div>
+			</div>
+
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-own" role="alert">
+  				<a href="./showKeyCollections" class="alert-link">Choose Key Collections</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-own" role="alert">
+  				<a href="./deleteKeyCollections" class="alert-link">Delete Key Collection</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-own" role="alert">
+  				<a href="./storeKeyCollections" class="alert-link">Store Key Collection</a>
+				</div>
+			</div>
+
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-danger" role="alert">
+  				<a href="./realTimeMonitoring" class="alert-link">Activate Local Realtime Monitoring</a>
+				</div>
+			</div>
+<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-danger" role="alert">
+  				<a href="./realTimeMonitoringRemote" class="alert-link">Activate Remote Realtime Monitoring</a>
+				</div>
+			</div>
+<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-danger" role="alert">
+  				<a href="./realTimeMonitoringRemoteConfigure" class="alert-link">Configure Remote Monitoring</a>
+				</div>
+			</div>
+			<div class="col-xs-12 .col-md-8"> 
+				<div class="alert alert-danger" role="alert">
+  				<a href="./realTimeMonitoringStatus" class="alert-link">Realtime Monitoring Status and Management</a>
+				</div>
+			</div>
+
+
+
+		</div>	
+	</div>
+	<div class="col-xs-6 col-sm-8">{% block innercontent %}{% endblock %}</div>
+  </div>
+</div>
+
+{% endblock %}
