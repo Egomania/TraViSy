@@ -1,8 +1,8 @@
 import glob
 
-def fileNamesinUploads():
+def fileNamesinUploads(folder):
 
-    filesExt = glob.glob('./uploads/*.pcap')
+    filesExt = glob.glob(folder + '/*.pcap')
 
     files = []
 

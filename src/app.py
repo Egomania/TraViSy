@@ -343,10 +343,10 @@ def removeFiles():
 
     if request.method == 'POST':
         fileToDelete = request.form['file']
-        os.remove("./uploads/"+fileToDelete)
+        os.remove(UPLOAD_FOLDER + "/"+fileToDelete)
         return render_template("backend/Success.html", action = "deleted", itemType = "File", itemName = fileToDelete)
 
-    files = helper.fileNamesinUploads()
+    files = helper.fileNamesinUploads(UPLOAD_FOLDER)
 
     return render_template("backend/removeFiles.html", files = files)
 
@@ -365,7 +365,7 @@ def storeFiles():
         if not nameToStore:
             nameToStore = fileToStore[:len(fileToStore)-5]
 
-        erg = pcapParser.storeFileIntoDataBase("./uploads/" + fileToStore, nameToStore)
+        erg = pcapParser.storeFileIntoDataBase(UPLOAD_FOLDER + "/" + fileToStore, nameToStore)
 
         description_collection.insert_one({"Description": descToStore, "Ende": endeToStore, "Location": locToStore, "Name": nameToStore, "Owner": ownerToStore, "Start": startToStore})
 
@@ -377,7 +377,7 @@ def storeFiles():
 
         return render_template("backend/Success.html", action = "stored", itemType = "File as Collection", itemName = fileToStore, stats = stats)
 
-    files = helper.fileNamesinUploads()
+    files = helper.fileNamesinUploads(UPLOAD_FOLDER)
 
     return render_template("backend/storeFiles.html", files = files)
 
@@ -409,7 +409,7 @@ def storeFilesCelery():
 
         return render_template("backend/Success.html", action = "stored", itemType = "File as Collection", itemName = fileToStore)
 
-    files = helper.fileNamesinUploads()
+    files = helper.fileNamesinUploads(UPLOAD_FOLDER)
 
     return render_template("backend/storeFiles.html", files = files)
 
@@ -835,7 +835,7 @@ def CeleryMonitoringTaskRemote(interface, counter, timer, collectionNameToUse, a
 @celery.task(serializer='json')
 def CeleryStoringTask(fileToStore, nameToStore, descToStore, endeToStore, locToStore, ownerToStore, startToStore):
     
-    erg = pcapParser.storeFileIntoDataBase("./uploads/" + fileToStore, nameToStore)
+    erg = pcapParser.storeFileIntoDataBase(UPLOAD_FOLDER + "/" + fileToStore, nameToStore)
 
     description_collection.insert_one({"Description": descToStore, "Ende": endeToStore, "Location": locToStore, "Name": nameToStore, "Owner": ownerToStore, "Start": startToStore})
 
