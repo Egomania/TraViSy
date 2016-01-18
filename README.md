@@ -2,7 +2,7 @@
 
 ## Installation
 
-### System specific (apt-get install):
+### System specific (apt-get install) - Ubuntu 15.10 Repo Version:
 
  * python >= 2.7.9
  * rabbitmq-server
@@ -10,9 +10,16 @@
  * python-virtualenv
  * python-dev
  * python-libpcap
- * libffi-dec
+ * python-pip
+ * libffi-dev
+ * libxslt-dev
+ * libxml2-dev
+ * libz-dev
+ * libcairo-dev
+ * libpang1.0-dev
+ * libpcap-dev
 
-### Python-specific (pip install or apt-get install python-):
+### Python-specific (pip install):
 
  * Flask
  * virtualenv
@@ -23,6 +30,7 @@
  * celery
  * pylibpcap
  * Flask-WeasyPrint
+ * pcapy
 
 ### Other preparation
 
