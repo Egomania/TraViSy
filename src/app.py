@@ -61,7 +61,9 @@ import pcapParser
 
 # Global vars
 
-Config = ConfigParser.ConfigParser()
+ConfigDefaults = {'SERVER_PEM': './cert/server.pem', 'SERVER_KEY': './cert/server.key', 'UPLOAD_FOLDER': './uploads', 'PORT':'80', 'DefaultCollection': 'bacnetPaket', 'DefaultKeyCollection':'key', 'Timer':'1000', 'Counter':'1000'}
+
+Config = ConfigParser.ConfigParser(defaults=ConfigDefaults)
 Config.read('app.ini')
 
 SERVER_PEM = Config.get('SecuritySetting', 'SERVER_PEM')
@@ -73,6 +75,7 @@ context.load_cert_chain(SERVER_PEM, SERVER_KEY)
 UPLOAD_FOLDER = Config.get('AppSetting', 'UPLOAD_FOLDER')
 ALLOWED_EXTENSIONS = set(['pcap'])
 
+PORT_USED = Config.getint('AppSetting', 'PORT')
 
 #database setup
 MONGODB_HOST = 'localhost'
@@ -132,8 +135,8 @@ app.config.update(
 celery = make_celery(app)
 
 # monitoring setup
-GLOBAL_TIMER = Config.get('MonitoringSetting', 'Timer')
-GLOBAL_COUNTER = Config.get('MonitoringSetting', 'Counter')
+GLOBAL_TIMER = Config.getint('MonitoringSetting', 'Timer')
+GLOBAL_COUNTER = Config.getint('MonitoringSetting', 'Counter')
 
 # init functions
 
@@ -844,7 +847,7 @@ def CeleryStoringTask(fileToStore, nameToStore, descToStore, endeToStore, locToS
 ########################################### MAIN ###########################################
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True, threaded=True, ssl_context=context)
+    app.run(host="0.0.0.0", port=PORT_USED, debug=True, threaded=True, ssl_context=context)
 
 
     
