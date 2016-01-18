@@ -193,7 +193,7 @@ def deleteCollections():
 
     if request.method == "GET":
         collectionList = database.collection_names(include_system_collections=False)
-        return render_template("backend/deleteKeyCollection.html", collections = collectionList)
+        return render_template("backend/deleteCollection.html", collections = collectionList)
     else:
         selectedCollection = request.form['collectionList']
         database.drop_collection(selectedCollection)
