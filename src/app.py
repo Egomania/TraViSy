@@ -334,7 +334,7 @@ def storeKeyCollections():
         selectedCollection = request.form['Name']
         selectedModulePath = request.form['module']
         selectedModuleName = selectedModulePath.split('.')[0]
-        my_module = imp.load_source(selectedModuleName, '.' + selectedModulePath)
+        my_module = imp.load_source(selectedModuleName, selectedModulePath)
         my_module.store(file, selectedCollection)
         return render_template("backend/Success.html", action = "stored", itemType = "KeyCollection", itemName = selectedCollection)
 
