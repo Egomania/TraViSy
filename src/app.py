@@ -346,7 +346,7 @@ def removeFiles():
         os.remove("./uploads/"+fileToDelete)
         return render_template("backend/Success.html", action = "deleted", itemType = "File", itemName = fileToDelete)
 
-    files = os.listdir("./uploads")
+    files = helper.fileNamesinUploads()
 
     return render_template("backend/removeFiles.html", files = files)
 
@@ -377,7 +377,7 @@ def storeFiles():
 
         return render_template("backend/Success.html", action = "stored", itemType = "File as Collection", itemName = fileToStore, stats = stats)
 
-    files = os.listdir("./uploads")
+    files = helper.fileNamesinUploads()
 
     return render_template("backend/storeFiles.html", files = files)
 
@@ -409,7 +409,7 @@ def storeFilesCelery():
 
         return render_template("backend/Success.html", action = "stored", itemType = "File as Collection", itemName = fileToStore)
 
-    files = os.listdir("./uploads")
+    files = helper.fileNamesinUploads()
 
     return render_template("backend/storeFiles.html", files = files)
 

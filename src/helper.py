@@ -1,3 +1,16 @@
+import glob
+
+def fileNamesinUploads():
+
+    filesExt = glob.glob('./uploads/*.pcap')
+
+    files = []
+
+    for fileName in filesExt:
+        files.append(fileName.split('/')[2])
+
+    return files
+
 def ConfigSectionMap(Config, section):
     dict1 = {}
     options = Config.options(section)
