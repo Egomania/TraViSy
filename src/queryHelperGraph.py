@@ -42,7 +42,11 @@ def plain_Graph(collection, library, values):
     x = {"$project": {"source": "$IPHeader.source_address", "destination": "$IPHeader.destination_address"}}
     z = {"$group": {"_id": {"source": "$source", "destination": "$destination"}, "count": {"$sum" : 1}}} 
     pipeline = [x,z]
-    projects = collection.aggregate(pipeline)
+
+    try:
+        projects = collection.aggregate(pipeline)['result']
+    except:
+        projects = collection.aggregate(pipeline)
 
     for project in projects: 
 
@@ -84,7 +88,10 @@ def complex_Graph(collection, library, Fields, labels, firstLevelNodeColor, seco
         x = {"$project": {"source": SrcExt, "destination": DstExt, "source_spec" : SrcSpecExt, "destination_spec" : DstSpecExt}}
         z = {"$group": {"_id": {"source": "$source", "destination": "$destination", "source_spec": "$source_spec", "destination_spec": "$destination_spec"}, "count": {"$sum" : 1}}} 
         pipeline = [x,z]
-        projects = collection.aggregate(pipeline)
+        try:
+            projects = collection.aggregate(pipeline)['result']
+        except:
+            projects = collection.aggregate(pipeline)
 
         for project in projects:
             
@@ -203,7 +210,10 @@ def grouped_Graph(collection, library, values):
     x = {"$project": {"source": Field1Ext, "destination": Field2Ext}}
     z = {"$group": {"_id": {"source": "$source", "destination": "$destination"}, "count": {"$sum" : 1}}} 
     pipeline = [x,z]
-    projects = collection.aggregate(pipeline)
+    try:
+        projects = collection.aggregate(pipeline)['result']
+    except:
+        projects = collection.aggregate(pipeline)
 
     json_links = []
     for project in projects: 

@@ -45,7 +45,10 @@ def bacnet_Controller(collection, value):
     y = {"$match": {"Bacnet.apduType": 1, "Bacnet.apduService" : 0 }}
     z = {"$group": {"_id": {"mac": "$mac", "ip": "$ip", "dev": "$dev", "pduSource": "$pduSource"}}} 
     pipeline = [y,x,z]
-    projects = collection.aggregate(pipeline)
+    try:
+        projects = collection.aggregate(pipeline)['results']
+    except:
+        projects = collection.aggregate(pipeline)
 
     for project in projects:
         tmp = {}
