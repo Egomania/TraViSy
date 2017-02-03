@@ -41,7 +41,10 @@ def transport_distribution(collection, port):
         y = {"$match": {project: {"$exists": True}}}
         z = {"$group": {"_id": "$type", "count": {"$sum" : 1}, "sum": {"$sum" : "$len"}}} 
         pipeline = [y,x,z]
-        projectsNew = collection.aggregate(pipeline)
+        try:
+            projectsNew = collection.aggregate(pipeline)['result']
+        except:
+            projectsNew = collection.aggregate(pipeline)
 
         children = []
         

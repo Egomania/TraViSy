@@ -12,20 +12,24 @@ import pymongo
 def bar_chart(collection, searchObject):
 
     searchObjectExt = "$" + searchObject
-
+    
     x = {"$project": {"type": searchObjectExt}}
     y = {"$match": {searchObject: {"$exists": True}}}
     z = {"$group": {"_id": "$type", "count": {"$sum" : 1}}} 
     pipeline = [x,z]
-    projects = collection.aggregate(pipeline)
+    try:
+        projects = collection.aggregate(pipeline)["result"]
+    except:
+        projects = collection.aggregate(pipeline)
 
     json_projects = []
     for project in projects:
-        if project.get('_id') != None:
-            project['type'] = int(project.get('_id'))
-            project['count'] = int(project.get('count'))
-            del project['_id']
-            json_projects.append(project)
+        if project != None:
+            if project.get('_id') != None:
+                project['type'] = int(project.get('_id'))
+                project['count'] = int(project.get('count'))
+                del project['_id']
+                json_projects.append(project)
     json_projects = json.dumps(json_projects, default=json_util.default)
     return json_projects
 

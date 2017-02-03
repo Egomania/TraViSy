@@ -84,7 +84,10 @@ def ip_timeline(collection, search, value):
         y = {"$match": {"Timestamp": {"$gt": current - value, "$lt": current}, Field : {"$exists": True}}}
         z = {"$group": {"_id": {"ip": "$ip"}, "count": {"$sum" : 1}}} 
         pipeline = [y,x,z]
-        projects = collection.aggregate(pipeline)
+        try:
+            projects = collection.aggregate(pipeline)['result']
+        except:
+            projects = collection.aggregate(pipeline)
 
         for project in projects:
             
