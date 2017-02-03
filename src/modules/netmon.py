@@ -52,15 +52,13 @@ celery = celery.Celery('tasks', backend='amqp://', broker='amqp://')
 
 # Global vars
 
-ConfigDefaults = {'UPLOAD_FOLDER': './uploads', 'DefaultCollection': 'collection', 'DefaultKeyCollection':'key', 'Timer':'1000', 'Counter':'1000', 'mongoDBHost' : 'localhost', 'mongoDBPort' : 27017, 'mongoDBName' : 'bacnet', 'mongoDBKeys' : 'key'}
+ConfigDefaults = {'UPLOAD_FOLDER': './uploads', 'DefaultCollection': 'collection', 'DefaultKeyCollection':'key', 'Timer':'1000', 'Counter':'1000', 'mongoDBHost' : 'localhost', 'mongoDBPort' : 27017, 'mongoDBName' : 'travisyNetmon', 'mongoDBKeys' : 'travisyNetmonKey', 'mongoDBDescription' : 'travisynetmondescription', 'mongoDBConfiguration' : 'travisynetmonconfiguration', 'DefaultDescriptionCollection':'description', 'DefaultConfigurationCollection':'configuration'}
 
 Config = ConfigParser.ConfigParser(defaults=ConfigDefaults)
-Config.read('./config/app.ini')
+Config.read('./config/netmon.ini')
 
 UPLOAD_FOLDER = Config.get('AppSetting', 'UPLOAD_FOLDER')
 ALLOWED_EXTENSIONS = set(['pcap'])
-
-PORT_USED = Config.getint('AppSetting', 'PORT')
 
 #database setup
 MONGODB_HOST = Config.get('MongoDatabaseSetting', 'mongoDBHost')
@@ -68,13 +66,13 @@ MONGODB_PORT = int (Config.get('MongoDatabaseSetting', 'mongoDBPort'))
 
 DB_NAME = Config.get('MongoDatabaseSetting', 'mongoDBName')
 DB_NAME_KEY = Config.get('MongoDatabaseSetting', 'mongoDBKeys')
-DB_NAME_DESCRIPTION = 'description'
-DB_NAME_CONFIG = 'configuration'
+DB_NAME_DESCRIPTION = Config.get('MongoDatabaseSetting', 'mongoDBDescription')
+DB_NAME_CONFIG = Config.get('MongoDatabaseSetting', 'mongoDBConfiguration')
 
 COLLECTION_NAME = Config.get('AppSetting', 'DefaultCollection')
 KEY_COLLECTION = Config.get('AppSetting', 'DefaultKeyCollection')
-DESCRIPTION_COLLECTION = 'description'
-CONFIG_COLLECTION = 'configuration'
+DESCRIPTION_COLLECTION = Config.get('AppSetting', 'DefaultDescriptionCollection')
+CONFIG_COLLECTION = Config.get('AppSetting', 'DefaultConfigurationCollection')
 
 connection = pymongo.MongoClient(MONGODB_HOST, MONGODB_PORT)
 database = connection[DB_NAME]
@@ -285,7 +283,7 @@ def storeKeyCollections():
         selectedModulePath = request.form['module']
         selectedModuleName = selectedModulePath.split('.')[0]
         my_module = imp.load_source(selectedModuleName, selectedModulePath)
-        my_module.store(file, selectedCollection)
+        my_module.store(file, connection, selectedCollection)
         return render_template("netmon/backend/Success.html", action = "stored", itemType = "KeyCollection", itemName = selectedCollection)
 
 @module.route("/netmon/removeFiles",methods=['GET', 'POST'])
@@ -771,21 +769,21 @@ def bacnet_WhoIs():
 @celery.task(serializer='json')
 def CeleryMonitoringTask(interface, counter, timer, collectionNameToUse):
     
-    requestTask = pcapParser.liveMonitoring(interface, int(counter), int(timer), collectionNameToUse)
+    requestTask = pcapParser.liveMonitoring(interface, int(counter), int(timer), collectionNameToUse, connection, DB_NAME)
     
     queryHelper.makeIndizes(database, collectionNameToUse)
 
 @celery.task(serializer='json')
 def CeleryMonitoringTaskRemote(interface, counter, timer, collectionNameToUse, address, port, user, iface):
 
-    requestTask = pcapParser.liveMonitoringRemote(interface, int(counter), int(timer), collectionNameToUse, address, port, user, iface)
+    requestTask = pcapParser.liveMonitoringRemote(interface, int(counter), int(timer), collectionNameToUse, address, port, user, iface, connection, DB_NAME)
 
     queryHelper.makeIndizes(database, collectionNameToUse)
 
 @celery.task(serializer='json')
 def CeleryStoringTask(fileToStore, nameToStore, descToStore, endeToStore, locToStore, ownerToStore, startToStore):
     
-    erg = pcapParser.storeFileIntoDataBase(UPLOAD_FOLDER + "/" + fileToStore, nameToStore)
+    erg = pcapParser.storeFileIntoDataBase(UPLOAD_FOLDER + "/" + fileToStore, nameToStore, connection, DB_NAME)
 
     description_collection.insert_one({"Description": descToStore, "Ende": endeToStore, "Location": locToStore, "Name": nameToStore, "Owner": ownerToStore, "Start": startToStore})
 

@@ -1,16 +1,8 @@
-import pymongo
 import csv
 import sys
 import string
 
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-
-DB_NAME_KEY = 'key'
-
-connection = pymongo.MongoClient(MONGODB_HOST, MONGODB_PORT)
-
-def store(csvfile, key_collection):
+def store(csvfile, connection, key_collection):
 
     keyCollection = connection[DB_NAME_KEY][key_collection]
 

@@ -16,13 +16,8 @@ import subprocess
 
 import pcapy
 import json
-import pymongo
 import bacpypes
 from base64 import b64encode,b64decode
-
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-DB_NAME = 'bacnet'
 
 def todict(obj, classkey=None):
     if isinstance(obj, dict):
@@ -489,14 +484,12 @@ def setCounter(pktCount):
 
     return pktCountLocal
 
-def storeFileIntoDataBase(fileName, collectionName):
+def storeFileIntoDataBase(fileName, collectionName, connection, DB_NAME):
 
     pcapReader = dpkt.pcap.Reader(open(fileName, "rb"))
 
     COLLECTION_NAME = collectionName
 
-    connection = pymongo.MongoClient(MONGODB_HOST, MONGODB_PORT)
-    database = connection[DB_NAME]
     collection = connection[DB_NAME][COLLECTION_NAME]
 
     i = 0
@@ -518,12 +511,10 @@ def storeFileIntoDataBase(fileName, collectionName):
     return {"pak": i, "run": t}    
 
 
-def liveMonitoring(interface, pktCount, timer, collectionName):
+def liveMonitoring(interface, pktCount, timer, collectionName, connection, DB_NAME):
   
     COLLECTION_NAME = collectionName
 
-    connection = pymongo.MongoClient(MONGODB_HOST, MONGODB_PORT)
-    database = connection[DB_NAME]
     collection = connection[DB_NAME][COLLECTION_NAME]
 
     capture = pcapy.open_live(interface, 1600, True, 100)
@@ -570,17 +561,14 @@ def liveMonitoring(interface, pktCount, timer, collectionName):
 
         
     
-def liveMonitoringRemote(interface, pktCount, timer, collectionName, address, port, user, iface):
+def liveMonitoringRemote(interface, pktCount, timer, collectionName, address, port, user, iface, connection, DB_NAME):
   
     COLLECTION_NAME = collectionName
-
-    connection = pymongo.MongoClient(MONGODB_HOST, MONGODB_PORT)
-    database = connection[DB_NAME]
     collection = connection[DB_NAME][COLLECTION_NAME]
 
     print 'try to establish connection'
 
-    cmd = "./connect.sh"
+    cmd = "./scripts/connect.sh"
 
     subprocess.Popen([cmd, user, address, iface, interface])
 
