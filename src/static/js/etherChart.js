@@ -1,8 +1,8 @@
 queue()
-	.defer(d3.json, "/ethernet/ForcedGraph")
-	.defer(d3.json, "/ethernet/Ethertype")
-	.defer(d3.json, "/ethernet/Timeline/0/100")
-	.defer(d3.json, "/ethernet/MacSrc")
+	.defer(d3.json, "/netmon/ethernet/ForcedGraph")
+	.defer(d3.json, "/netmon/ethernet/Ethertype")
+	.defer(d3.json, "/netmon/ethernet/Timeline/0/100")
+	.defer(d3.json, "/netmon/ethernet/MacSrc")
 	.await(makeGraphs);
 
 var start = 0
@@ -36,8 +36,8 @@ function NextData()
 	end = end + diff;
 	
 	queue()
-	.defer(d3.json, "/ethernet/Timeline/"+start+"/"+end)
-	.defer(d3.json, "/ethernet/MacSrc")
+	.defer(d3.json, "/netmon/ethernet/Timeline/"+start+"/"+end)
+	.defer(d3.json, "/netmon/ethernet/MacSrc")
 	.await(showTimeline);
 }
 
@@ -48,8 +48,8 @@ function PrevData()
 	end = end - diff;
 	
 	queue()
-	.defer(d3.json, "/ethernet/Timeline/"+start+"/"+end)
-	.defer(d3.json, "/ethernet/MacSrc")
+	.defer(d3.json, "/netmon/ethernet/Timeline/"+start+"/"+end)
+	.defer(d3.json, "/netmon/ethernet/MacSrc")
 	.await(showTimeline);
 }
 
@@ -68,8 +68,8 @@ function ShowData()
 	diff = end - start;
 	
 	queue()
-	.defer(d3.json, "/ethernet/Timeline/"+startNew+"/"+endNew)
-	.defer(d3.json, "/ethernet/MacSrc")
+	.defer(d3.json, "/netmon/ethernet/Timeline/"+startNew+"/"+endNew)
+	.defer(d3.json, "/netmon/ethernet/MacSrc")
 	.await(showTimeline);
 }
 

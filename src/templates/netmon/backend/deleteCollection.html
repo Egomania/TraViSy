@@ -1,0 +1,41 @@
+{% extends "netmon/backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-info">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Delete existing collections</h3>
+	</div>
+
+	<div class="panel-body">
+
+	
+
+		<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+
+    		{%for collection in collections%}
+
+		
+		<div class="radio">
+	  		<label>
+	    			<input type="radio" name="collectionList" value="{{ collection }}">
+	    			{{ collection }}
+	  		</label>
+		</div>
+		
+
+		{%endfor%}
+
+		<button type="submit" class="btn btn-default">Delete</button>
+
+		</form>
+
+
+  	</div>
+
+  	<div class="panel-footer">
+		Choose one of the given collections to delete it. Be aware that this action cannot be undone.	</div>
+
+</div>
+
+
+{% endblock %}

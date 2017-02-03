@@ -1,6 +1,6 @@
 queue()
-	.defer(d3.json, "/transport/IPPortsConnection")
-	.defer(d3.json, "/transport/sourcePortDistribution")
+	.defer(d3.json, "/netmon/transport/IPPortsConnection")
+	.defer(d3.json, "/netmon/transport/sourcePortDistribution")
 	.await(makeGraphs);
 
 function makeGraphs(error, node, distribution)

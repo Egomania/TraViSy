@@ -1,4 +1,4 @@
 *.pyc
 *.*~
-src/app.ini
+config/app.ini
 *.pcap

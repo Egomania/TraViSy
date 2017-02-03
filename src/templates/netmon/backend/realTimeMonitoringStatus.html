@@ -1,0 +1,78 @@
+{% extends "netmon/backendBase.html" %} {% block innercontent %}
+
+<!-- BootstrapTABLE related stuff -->
+<link rel="stylesheet" href="./static/lib/css/bootstrap-table.css" type="text/css">
+<script src="./static/lib/js/bootstrap-table.js"></script>
+
+<div class="panel panel-danger">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Realtime Monitoring Status</h3>
+	</div>
+
+	<div class="panel-body">
+
+		<table id="statusTable" data-toggle="table" classes="table table-hover table-condensed" data-url="./realTimeMonitoringStatusData" data-cache="false" data-sort-name="id" data-sort-order="desc" data-show-columns="true" data-id-field="id" data-show-refresh="true" data-show-toggle="true" data-search="true">
+
+			<thead>
+				<th data-field="id" data-sortable="true" data-switchable="false">ID</th>
+				<th data-field="intID" data-sortable="true">Internal ID</th>
+				<th data-field="iface" data-sortable="true" data-switchable="false">Interface</th>
+				<th data-field="stat" data-sortable="true">State</th>
+				<th data-field="status" data-sortable="true">Status</th>
+			</thead>
+
+		</table>
+	<div><p>
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+	
+		{% for task in TasksToCancel %}
+
+			<div class="radio">
+	  		<label>
+	    			<input type="radio" name="task" value="{{ task }}">
+	    			{{ task }}
+	  		</label>
+			</div>
+		{% endfor %}	
+	
+		<input type="hidden" name="action" value="cancel">
+
+		<button type="submit" class="btn btn-default">Cancel Task</button>
+
+	</form>
+
+	</p></div>
+
+	<p><div>
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+	
+		{% for task in TasksToDelete %}
+
+			<div class="radio">
+	  		<label>
+	    			<input type="radio" name="task" value="{{ task }}">
+	    			{{ task }}
+	  		</label>
+			</div>
+		{% endfor %}	
+
+		<input type="hidden" name="action" value="delete">
+	
+		<button type="submit" class="btn btn-default">Delete Task</button>
+
+	</form>
+	
+	</p></div>
+
+  	</div>
+
+  	<div class="panel-footer">
+		See Status of Realtime Capturing and Monitoring	tasks. Be aware that the information is deleted in case of server restart.</div>
+
+</div>
+
+
+{% endblock %}

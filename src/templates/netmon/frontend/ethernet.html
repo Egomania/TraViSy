@@ -1,0 +1,171 @@
+{% extends "netmon/netmonBase.html" %} 
+
+{% block netmon %}
+
+<!-- MAIN related stuff -->
+<script src="/static/lib/js/d3.tip.v0.6.3.js"></script>
+<script src="/static/lib/js/legend.js"></script>
+<script src="/static/js/chart.js"></script>
+
+<!-- C3 related stuff -->
+<link rel="stylesheet" href="/static/lib/css/c3.css"  type="text/css">
+<script src="/static/lib/js/c3.min.js"></script>
+
+<script src='/static/js/c3Chart.js' type='text/javascript'></script>
+
+<!-- LOCAL related stuff -->
+<script src='/static/js/etherChart.js' type='text/javascript'></script>
+
+<div class="container-fluid">
+	<div class="row">
+
+
+
+		<div class="chart-wrapper">
+			<div class="chart-title">Timing</div>
+			<div class="chart-stage">
+				<div id=time-chart></div>
+			</div>
+			<div class="chart-notes">
+				<div class="row">
+
+					<div class="col-sm-6">
+						<p>
+						<b>Timing Distribution</b> shows sending Ethernet Addresses and Ethernettype of the sent packet.</br>
+						Use Next- and Prev- Button to navigate through the data or choose a range of packets that has to be shown.<br>
+						Hovering over the data shows more detailed information on the selected packet.
+						</p></br>
+					</div>
+
+					<div class="col-sm-6">
+
+						<button onclick="PrevData()" type="submit" class="btn btn-default">Prev</button>
+						<button onclick="NextData()" type="submit" class="btn btn-default">Next</button>			
+
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="col-sm-6">
+
+						<button class="btn btn-default" type="button" onclick="export_svg('time-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('time-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('time-chart', 'png')">Export as png</button>
+
+									
+					</div>
+
+
+					<div class="col-sm-6">
+						<div class="input-group text-right">
+
+							<div>
+								<input name="startNew" id="startNew" type="text"
+									class="form-control" placeholder="Start from ...">
+							</div>
+
+							<input name="endNew" id="endNew" type="text" class="form-control"
+								placeholder="Until ...">
+
+							<button class="btn btn-default" type="button"
+								onclick="ShowData()">Show!</button>
+
+
+						</div>
+						<!-- /input-group -->
+					</div>
+					<!-- /.col-lg-6 -->
+				</div>
+				
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+
+
+
+		<div class="col-xs-6 col-md-4">
+			<div class="chart-wrapper">
+				<div class="chart-title">Ethernettype</div>
+				<div class="chart-stage">
+					<div id=bar-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						<b>Distribution of Ethernet-Type</b> shows the distribution of Ethernettypes among sent messages. </br>
+						Hovering over the data shows more detailed information.</br>
+						The y-axis shows the number of packets of the specific type. </br>
+						The x-axis shows the Ethernettype as hexadecimal representation.
+					</p>
+					</br>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-6 col-md-4">
+			<div class="chart-wrapper">
+				<div class="chart-title">Forced Diagramm</div>
+				<div class="chart-stage">
+					<div id=forced-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						<b>Communication Relations</b> are shown in the forced diagramm. </br>
+						Hovering over nodes shows the Ethernet address of the chosen node. </br>
+						The thickness of the connecting lines imply the amount of traffic between the nodes.</br>
+						The colors imply only-sending Node, only-receiving Node and sending-receiving Node.
+					</p>
+					</br>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('forced-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('forced-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('forced-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="col-xs-6 col-md-4">
+			<div class="chart-wrapper">
+				<div class="chart-title">Ethernet Communication</div>
+				<div class="chart-stage">
+					<div id=chord-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						<b>The Chord Chart</b> shows the amount of traffic between Nodes. </br>
+						Hovering over the diagram selects a specific Ethernet address. </br>
+						The nodes shown in the diagram are only sending-receiving Nodes.
+					</p>
+					</br>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('chord-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('chord-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('chord-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+{% endblock %}

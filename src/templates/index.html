@@ -17,152 +17,33 @@
 
 <div class="page-header">
 	<h1>
-		Traffic Visualization <small>Making Network Traffic
-			Understandable</small>
+		Traffic Visualization <small>Making Network Traffic Understandable</small>
 	</h1>
 </div>
 
+
+{%for imp in imps%}
+
 <div class="container-fluid">
 	<div class="row">
-
-<div class="well well-lg"><h2>Packet-based Traffic Visualization up to Layer 4.</h2></div>
-
-		<div class="col-xs-6 col-md-4">
-
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Ethernet Traffic</h3>
-				</div>
-				<div class="panel-body heightRow">
-					<p>
-						<b>Timing Diagram</b> shows Ethernet addresses and sent Ethertype
-						of messages.
-					</p>
-					<p>
-						<b>Bar Chart</b> shows Ethernettype Distribution among the
-						dataset.
-					</p>
-					<p>
-						<b>Forced Graph</b> shows Ethernet addresses and connections
-						between them.
-					</p>
-					<p>
-						<b>Chord Chart</b> shows Ethernet addresses and flows between
-						them, as well as amount of traffic.
-					</p>
-				</div>
-				<div class="panel-footer">
-					<p>
-						<a class="btn btn-primary" href="./ethernet" role="button">See
-							more</a>
-					</p>
-				</div>
-			</div>
-
-		</div>
-
-		<div class="col-xs-6 col-md-4">
-		
 		<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">IP Traffic</h3>
-				</div>
-				<div class="panel-body heightRow">
-					<p>
-						<b>D3 Forced Graph</b> shows IP Traffic between different IP Addresses.
-					</p>
-					<p>
-						<b>Binned Timelines</b> show the amount of packets of sending and receiving IP-Addresses.
-					</p>
-					<p>
-						An <b>Adjacency Matrix</b> shows the communications relations between different IP Addresses.
-					</p>
-					<p>
-						<b>Bar Charts</b> show the TTL-Distribution and the Flag-Distribution of the selected Dataset.
-					</p>
-					<p>
-						<b>Flows between IP Addresses</b> are shown in a separate Graphs-Tab using VIS-, Sigma-, Alchemy- and plain D3-Libraries. .
-					</p>
-				</div>
-				<div class="panel-footer">
-					<p>
-						<a class="btn btn-primary" href="./ip" role="button">See
-							more</a>
-					</p>
-				</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ imp[0] }}</h3>
 			</div>
-		
-		</div>
-		
-		<div class="col-xs-6 col-md-4">
-		
-		<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">TCP/UDP Traffic</h3>
-				</div>
-				<div class="panel-body heightRow">
-					<p>
-						A <b>Forced Graph</b> shows open ports with corresponding IP Addresses and correspondig communication.
-					</p>
-					<p>
-						In the Extended-Graph-Tab the <b>Communication Graph </b> is shown and gives options to work with the graph directly.
-					</p>
-				</div>
-				<div class="panel-footer">
-					<p>
-						<a class="btn btn-primary" href="./tcp_udp" role="button">See
-							more</a>
-					</p>
-				</div>
+			<div class="panel-body heightRow">
+				{{ imp[2] }}
 			</div>
-		
+			<div class="panel-footer">
+				<p>
+					<a class="btn btn-primary" href="{{ imp[1] }}" role="button">See
+							more</a>
+				</p>
+			</div>
 		</div>
-
 	</div>
-	
-	<div class="row">
-	
-	<div class="well well-lg"><h2>Packet-based Traffic Visualization for Application Layer.</h2></div>
-	
-		<div class="col-xs-6 col-md-4">
-		
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">BacNet Traffic</h3>
-				</div>
-				<div class="panel-body heightRow">
-					<p>
-						<b>Sunburst Diagram</b> shows APDU Types and APDU Service Distribution.
-					</p>
-					<p>
-						<b>Bar Chart</b> shows NPDU Network Priority Distribution among the
-						dataset.
-					</p>
-					<p>
-						<b>Bar Chart</b> shows PDU Flag Distribution among the
-						dataset.
-					</p>
-					<p>
-						<b>Time Line Binning</b> shows binned Communication Amount on Controller basis.
-					</p>
-					<p>
-						<b>Vis Chart</b> shows Controller as well as dedicated MAC- and IP- Addresses and related Data Points as well as Communication Relations on seperate Dashboard. 
-					</p>
-				</div>
-				<div class="panel-footer">
-					<p>
-						<a class="btn btn-info" href="./bacnet" role="button">See
-							more</a>
-					</p>
-				</div>
-			</div>
-		
-		</div>
-	
-	</div>
-	
 </div>
-
+		
+{%endfor%}
 
 
 {% endblock %}

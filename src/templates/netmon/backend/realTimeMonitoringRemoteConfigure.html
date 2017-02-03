@@ -1,0 +1,146 @@
+{% extends "netmon/backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-danger">
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Realtime Monitoring</h3>
+	</div>
+
+	<div class="panel-body">
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+			{%for config in configurations%}
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="{{ config.name }}_heading">
+      				<h4 class="panel-title">
+        			<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ config.name }}" aria-expanded="true" aria-controls="{{ config.name }}">
+          			{{ config.name }}
+        			</a>
+      				</h4>
+    				</div>	
+
+
+				<div id="{{ config.name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ config.name }}_heading">
+      				<div class="panel-body">
+
+					<form method="POST" style="width:100%; position:relative; border-collapse: separate" id="{{ config.name }}" name="{{ config.name }}">
+						<div class="form-group">
+    							<label for="id">ID</label>
+    								<input type="text" class="form-control" id="id" placeholder="{{ config.id }}" name="id" value="{{ config.id }}" readonly="readonly">
+  						</div> 
+
+						<div class="form-group">
+    							<label for="dev">Device</label>
+    								<input type="text" class="form-control" id="dev" placeholder="{{ config.dev }}" name="dev" value="{{ config.dev }}" readonly="readonly">
+  						</div> 
+
+						<div class="form-group">
+    							<label for="Name">Name</label>
+    								<input type="text" class="form-control" id="name" placeholder="{{ config.name }}" name="name" value="{{ config.name }}" readonly="readonly">
+  						</div> 
+						
+						
+
+						<div class="form-group">
+    							<label for="address">Remote Address</label>
+    								<input type="text" class="form-control" id="address" placeholder="{{ config.address }}" name="address">
+  						</div>
+						<div class="form-group">
+						    	<label for="port">Remote Port</label>
+						    	<input type="text" class="form-control" id="port" placeholder="{{ config.port }}" name="port">
+						</div>
+						<div class="form-group">
+						    	<label for="user">Username</label>
+						    	<input type="text" class="form-control" id="user" placeholder="{{ config.user }}" name="user">
+						</div>
+						
+						<div class="form-group">
+						    	<label for="iface">Remote Interface</label>
+						    	<input type="text" class="form-control" id="iface" placeholder="{{ config.iface }}" name="iface">
+						</div>
+	
+						
+						<input type="hidden" name="action" value="edit">
+
+						<button type="submit" class="btn btn-default">Update</button>
+
+					</form>
+
+				</div>
+				</div>
+
+			</div>
+			{%endfor%}
+
+		</div>
+
+	<div><p>
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+
+		{%for config in configurations%}
+
+		
+		<div class="radio">
+	  		<label>
+	    			<input type="radio" name="config" value="{{ config.name }}">
+	    			{{ config.name }}
+	  		</label>
+		</div>
+		
+
+		{%endfor%}
+
+		<input type="hidden" name="action" value="delete">
+
+		<button type="submit" class="btn btn-default">Delete</button>
+
+	</form>
+
+	</div></p>
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate"> 
+
+		<div class="form-group">
+			<label for="timer">Name</label>
+			<input type="text" class="form-control" id="name" name="name">
+		</div>
+
+		<div class="form-group">
+			<label for="timer">Remote Address</label>
+			<input type="text" class="form-control" id="address" name="address">
+		</div>
+
+		<div class="form-group">
+			<label for="counter">Remote Port</label>
+			<input type="text" class="form-control" id="port" name="port">
+		</div>
+
+		<div class="form-group">
+			<label for="collection">Username</label>
+			<input type="text" class="form-control" id="user" name="user">
+		</div>
+
+
+		<div class="form-group">
+			<label for="collection">Remote Interface</label>
+			<input type="text" class="form-control" id="iface" name="iface">
+		</div>
+
+		<input type="hidden" name="action" value="new">
+
+		<button type="submit" class="btn btn-default">Save</button>
+		
+	</form>
+
+  	</div>
+
+  	<div class="panel-footer">
+		Configure and a new Remote Connections for Realtime Monitoring.
+	</div>
+
+</div>
+
+
+{% endblock %}

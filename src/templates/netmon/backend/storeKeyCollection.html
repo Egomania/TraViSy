@@ -1,0 +1,44 @@
+{% extends "netmon/backendBase.html" %} {% block innercontent %}
+
+<div class="panel panel-own">
+
+	<div class="panel-heading">
+		<h3 class="panel-title"> Upload Files to the Server </h3>
+	</div>
+
+	<div class="panel-body">
+
+	<form method="POST" style="width:100%; position:relative; border-collapse: separate" enctype=multipart/form-data>
+
+    		{%for module in modules%}
+				<div class="radio">
+	  			<label>
+	    				<input type="radio" name="module" value="{{ module }}">
+	    				{{ module }}
+	  			</label>
+			</div>
+			{%endfor%}
+
+			<div class="form-group">
+				<label for="Name">Name</label>
+				<input type="text" class="form-control" id="Name" name="Name" >
+  			</div> 
+			<div class="form-group">
+				<label for="exampleInputFile">File input</label>
+				<input type="file" id="exampleInputFile" name=file>
+				<p class="help-block">Example block-level help text here.</p>
+			</div>
+	  
+  		<button type="submit" class="btn btn-default" value="Upload">Upload</button>
+	</form>
+
+
+  	</div>
+
+  	<div class="panel-footer">
+		Choose a module for parsing, add a key collection name und upload the corresponding .csv -file.	</div>
+
+</div>
+
+
+{% endblock %}

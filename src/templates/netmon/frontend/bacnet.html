@@ -1,0 +1,175 @@
+{% extends "netmon/netmonBase.html" %} 
+
+{% block netmon %}
+
+<!-- MAIN related stuff -->
+<script src="/static/lib/js/d3.tip.v0.6.3.js"></script>
+<script src="/static/lib/js/legend.js"></script>
+<script src="/static/js/chart.js"></script>
+
+<!-- C3 related stuff -->
+<link rel="stylesheet" href="./static/lib/css/c3.css"  type="text/css">
+<script src="/static/lib/js/c3.min.js"></script>
+
+<script src='/static/js/c3Chart.js' type='text/javascript'></script>
+
+<!-- LOCAL related stuff -->
+
+<script src='/static/js/bacnetChart.js' type='text/javascript'></script> 
+
+
+    <style type="text/css">
+        #mynetwork {
+            width: 600px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
+
+<div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-xs-6 col-md-4">
+		
+			<div class="chart-wrapper">
+				<div class="chart-title">Sunburst Diagram</div>
+				<div class="chart-stage">
+					<div id=sunburst-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						<b>Sunburst Diagram</b> shows APDU Types and APDU Services. </br>
+						Hovering over elements shows more detailed information. </br>
+						Select Size (UDP-Packet size) or Count for displaying specific information.
+					<p>
+					</br>
+					<div class="row">
+
+						<div class="col-sm-6">
+						
+							<div class="checkbox">
+  								<label><input type="radio" name="mode" value="size">Size</label>
+							</div>
+							
+							<div class="checkbox">
+							  <label><input type="radio" name="mode" value="count">Count</label>
+							</div>
+
+							<div class="checkbox">
+							  <label><input type="radio" name="mode" value="norm">Normalize</label>
+							</div>
+						
+						</div>
+						
+						<div class="col-sm-6">
+							<p>
+						
+								<button class="btn btn-default" type="button" onclick="export_svg('sunburst-chart', 'svg')">Export as svg</button>
+								<button class="btn btn-default" type="button" onclick="export_svg('sunburst-chart', 'pdf')">Export as pdf</button>
+								<button class="btn btn-default" type="button" onclick="export_svg('sunburst-chart', 'png')">Export as png</button>
+							</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		
+		</div>
+  
+  
+  		<div class="col-xs-6 col-md-4">
+		
+			<div class="chart-wrapper">
+				<div class="chart-title">Bar Chart</div>
+				<div class="chart-stage">
+					<div id=bar-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						This <b>Bar Chart</b> shows Network Priority Distribution among all Bacnet-Pakets. </br>
+						Hovering over elements shows more detailed information. 
+					</p>
+					</br>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+			</div>
+		
+		</div>
+  		
+  		<div class="col-xs-6 col-md-4">
+		
+			<div class="chart-wrapper">
+				<div class="chart-title">Bar Chart</div>
+				<div class="chart-stage">
+					<div id=bar2-chart></div>
+				</div>
+				<div class="chart-notes">
+					<p>
+						This <b>Bar Chart</b> shows the PDU-Flag Distribution.</br>
+						Hovering over elements shows more detailed information. 
+					</p>
+					</br>
+					<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('bar2-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar2-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('bar2-chart', 'png')">Export as png</button>
+					</p>
+				</div>
+			</div>
+		
+		</div>
+	
+	</div>
+	
+
+	<div class="row">
+		<div class="chart-wrapper">
+			<div class="chart-title">Timeline Binning</div>
+			<div class="chart-stage">
+				<div id=timelineBin-chart></div>
+			</div>
+			<div class="chart-notes">
+				<p>
+					This <b>Timeline Graph</b> shows binned amount of traffic.</br>
+					Hovering over elements shows more detailed information. </br>
+					Binning size is variable and can be adapted, Binning size of one equals 1ms.
+				</p>
+				</br>
+				<p>
+					<div class="input-group text-right">
+							<div>
+								<input name="binningValue" id="binningValue" type="text"
+									class="form-control" placeholder="Enter Binning Size ...">
+							</div>
+
+							<button class="btn btn-default" type="button"
+								onclick="ReBinning()">Show!</button>
+
+
+					</div>
+				</p>
+				</br>
+				<p>
+						
+						<button class="btn btn-default" type="button" onclick="export_svg('timelineBin-chart', 'svg')">Export as svg</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('timelineBin-chart', 'pdf')">Export as pdf</button>
+						<button class="btn btn-default" type="button" onclick="export_svg('timelineBin-chart', 'png')">Export as png</button>
+				</p>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,8 +1,8 @@
 queue()
-	.defer(d3.json, "/bacnet/APDU")
-	.defer(d3.json, "/bacnet/Prio")
-	.defer(d3.json, "/bacnet/pduFlags")
-	.defer(d3.json, "/bacnet/Controller/1000")
+	.defer(d3.json, "/netmon/bacnet/APDU")
+	.defer(d3.json, "/netmon/bacnet/Prio")
+	.defer(d3.json, "/netmon/bacnet/pduFlags")
+	.defer(d3.json, "/netmon/bacnet/Controller/1000")
 	.await(makeGraphs);
 
 function makeGraphs(error, type, bar, bar2, controller) {
@@ -27,7 +27,7 @@ function ReBinning()
 
 	var binningValue = parseInt(document.getElementById("binningValue").value); 
 	queue()
-		.defer(d3.json, "/bacnet/Controller/"+binningValue)
+		.defer(d3.json, "/netmon/bacnet/Controller/"+binningValue)
 		.await(showBinningTimeline);
 }
 

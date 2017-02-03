@@ -1,5 +1,5 @@
 queue()
-	.defer(d3.json, "/transport/IPPortsConnectionCyto")
+	.defer(d3.json, "/netmon/transport/IPPortsConnectionCyto")
 	.await(makeGraphs);
 
 function makeGraphs(error, node)

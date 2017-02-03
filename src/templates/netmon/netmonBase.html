@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+
+
+	<div class="navbar navbar-inverse" role="navigation">
+		<a class="navbar-brand navbar-right" href="/netmon/backend">Admin</a>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/netmon">Home</a>
+				<a class="navbar-brand" href="/netmon/ethernet">Ethernet Dashboard</a>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IP Dashboard <span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+            						<li><a href="/netmon/ip">Main Dashboard</a></li>
+            						<li><a href="/netmon/ipGraphs">Graphs</a></li>
+          					</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TCP/UDP Dashboard<span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+            						<li><a href="/netmon/tcp_udp">Main Dashboard</a></li>
+            						<li><a href="/netmon/tcpGraphs">Extended Graph</a></li>
+          					</ul>
+					</li>
+				</ul>
+				
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bacnet Dashboard <span class="caret"></span></a>
+          					<ul class="dropdown-menu">
+						    <li><a href="/netmon/bacnet">Main Dashboard</a></li>
+						    <li><a href="/netmon/bacnetSpec">VIS Communication Relations</a></li>
+         		 			</ul>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+
+
+	
+	{% block netmon %}{% endblock %}
+
+{% endblock %}
+		
+
+	

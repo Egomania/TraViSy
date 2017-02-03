@@ -1,0 +1,209 @@
+{% extends "netmon/netmonBase.html" %} 
+
+{% block netmon %}
+
+<!-- CYTOSCAPE related stuff -->
+<script src='/static/lib/js/cytoscape.js' type='text/javascript'></script>
+<script src='/static/lib/js/arbor.js' type='text/javascript'></script>
+<script src='/static/lib/js/cola.v3.min.js' type='text/javascript'></script>
+<script src='/static/lib/js/dagre.js' type='text/javascript'></script>
+<script src='/static/lib/js/foograph.js' type='text/javascript'></script>
+<script src='/static/lib/js/springy.js' type='text/javascript'></script>
+<script src='/static/lib/js/rhill-voronoi-core.js' type='text/javascript'></script>
+
+<script src='/static/js/cytoGraph.js' type='text/javascript'></script>
+
+<!-- LOCAL related stuff -->
+<script src='/static/js/transportGraphChart.js' type='text/javascript'></script>
+
+<style>
+	#cy {
+	  height: 100%;
+	  width: 100%;
+	  position: relative;
+	  left: 0;
+	  top: 0;
+	}
+</style>
+
+<div class="container-fluid">
+	<div class="row" style="height:300px">
+		
+		<div class="col-xs-2">
+			<p class="bg-success"><strong>Select a Layout (default is random): </strong></p>
+			<button id="layout-null" type="button">Null</button>
+			<button id="layout-preset" type="button">Preset</button>
+			<button id="layout-grid" type="button">Grid</button>
+			<button id="layout-random" type="button">Random</button>
+			<button id="layout-circle" type="button">Circle</button>
+			<button id="layout-concentric" type="button">Concentric</button>
+			<button id="layout-breadthfirst" type="button">Breadthfirst</button>
+			<button id="layout-dagre" type="button">Dagre</button>
+			<button id="layout-cose" type="button">Cose</button>
+			<button id="layout-cola" type="button">Cola</button>
+			<button id="layout-spread" type="button">Spread</button>
+			<button id="layout-arbor" type="button">Arbor</button>
+			<button id="layout-springy" type="button">Springy</button>
+		</div>
+
+
+		<div class="col-xs-2">
+			<p class="bg-success"><strong>Information of single Nodes</strong></p>
+			<button id="algo-name" type="button">Info</button>
+			<p>
+				<div id="nodeInfoBox">
+				<em>Select Node and show Info.</em>
+				</div>
+			</p>
+		</div>
+
+		<div class="col-xs-2">
+			<p class="bg-success"><strong>Metainformation of the Dataset:</strong></p>
+			<p>
+				<div id="collectionInfoBox">
+				
+				</div>
+			</p>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="row">
+				<p class="bg-success"><strong>Search functions to explore the dataset: </strong></p>
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<p>Choose an IP-Node and show all direct IP-neighbours:</p>
+					<button id="algo-neighbourSelect" type="button">Select Neighbours</button>
+					</br>
+					<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+
+					<p>Choose an IP-Node and show shortest path to other IPs:</p>
+					<label for="startNode">From:</label></br>
+		    				<select id="startNode">
+							
+							{%for ip in ips%}
+								{% if ip.data.initClass == 'IP' %}
+									<option value="{{ ip.data.id }}">{{ ip.data.id }}</option>
+								{% endif %}
+							{%endfor%}
+						</select>
+						</br>
+					<label for="endNode">To:</label></br>
+		    				<select id="endNode">
+							<option value="any">any</option>
+							{%for ip in ips%}
+								{% if ip.data.initClass == 'IP' %}
+									<option value="{{ ip.data.id }}">{{ ip.data.id }}</option>
+								{% endif %}
+							{%endfor%}
+						</select>
+						</br></br>
+					<button id="algo-dikstra" type="button">Dijkstra</button>
+					<button id="algo-astar" type="button">A* Algorithm</button>
+					<button id="algo-floyd" type="button">Floyd-Warshall</button>
+					<button id="algo-bellman" type="button">Bellman-Ford</button>
+					</br></br>
+					<div id="nodeDistanceBox">
+						<em>Distance: </em>
+					</div>
+					
+					
+				</div>
+				<div class="col-xs-6">
+						<p>Perform a Breadth/Depth-First Search and highlight the search path:</p>
+						<div class="row">
+							<div class="col-xs-6">
+								<label for="fromNode">From:</label></br>
+				    				<select id="fromNode">
+							
+									{%for ip in ips%}
+										{% if ip.data.initClass == 'IP' %}
+											<option value="{{ ip.data.id }}">{{ ip.data.id }}</option>
+										{% endif %}
+									{%endfor%}
+								</select>
+								</br>
+								<label for="toNode">To:</label></br>
+				    				<select id="toNode">
+							
+									{%for ip in ips%}
+										{% if ip.data.initClass == 'IP' %}
+											<option value="{{ ip.data.id }}">{{ ip.data.id }}</option>
+										{% endif %}
+									{%endfor%}
+								</select>
+		  					</div>
+							<div class="col-xs-6">
+								</br>
+				  				<button type="button" class="btn btn-default" id="algo-searchbfs">BFS Search</button>
+								</br></br>
+								<button type="button" class="btn btn-default" id="algo-searchdfs">DFS Search</button>
+							</div>
+						</div>
+						</br>
+						<div class="row">
+							<p style="width: 90%" class="bg-success"><strong>Other Graph Algorithms: </strong></p>
+							<hr style="width: 90%; color: black; height: 1px; background-color:black;" />
+						</div>
+						<div class="row">
+							<div class="col-xs-6">
+								<p>Create a Minimum Spanning Tree:</p>
+								<button type="button" class="btn btn-default" id="algo-kruskal">Kruskal</button>
+							</div>
+							<div class="col-xs-6">
+								<p>Create a Minimum Cut:</p>
+								<button type="button" class="btn btn-default" id="algo-karger">KargerStein</button>
+							</div>
+						</div>
+						<div class="row">
+							<hr style="width: 90%; color: black; height: 1px; background-color:black;" />
+						
+							<button id="algo-remove" type="button">Back to Normal</button>	
+						</div>
+											
+					</div>
+				</div>
+
+		</div>
+		<div class="col-xs-2">
+			<div class="row">
+				<p class="bg-success"><strong>Page Rank: </strong></p>
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+				<div class="row">
+					<div class="col-xs-6"><label for="dampingFactor">Damping Factor:</label></div>
+					<div class="col-xs-6"><input type="number" min="0" id="dampingFactor"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6"><label for="iterations">Number of Iterations:</label></div>
+					<div class="col-xs-6"><input type="number" min="1" max="100" id="iterations"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6"><label for="precision">Precision:</label></div>
+					<div class="col-xs-6"><input type="number" min="1" id="precision"></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6"><label for="NumberOfNodes">Number of Nodes:</label></div>
+					<div class="col-xs-6"><input type="number" min="1" id="NumberOfNodes"></div>
+				</div>
+				<input class="portCheckbox" type="checkbox" value="1" name="port" id="port"> use Ports 
+				<input class="ipCheckbox" type="checkbox" value="1" name="ip" id="ip"> use IPs
+				</br>
+				<button type="button" class="btn btn-default" id="algo-pageRank">Calculate</button></br>
+				<hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+
+				<div id="pageRankBox">
+					<em>Ranks</em>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="row">	
+
+		<div class="col-xs-12" style="height:1000px" id='cy'></div>
+
+	</div>
+</div>
+
+{% endblock %}

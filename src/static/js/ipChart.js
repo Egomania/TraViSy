@@ -1,10 +1,10 @@
 queue()
-	.defer(d3.json, "/ip/Node")
-	.defer(d3.json, "/ip/Matrix")
-	.defer(d3.json, "/ip/timeline/0/100")
-	.defer(d3.json, "/ip/timeline/1/100")
-	.defer(d3.json, "/ip/ttl")
-	.defer(d3.json, "/ip/flags")
+	.defer(d3.json, "/netmon/ip/Node")
+	.defer(d3.json, "/netmon/ip/Matrix")
+	.defer(d3.json, "/netmon/ip/timeline/0/100")
+	.defer(d3.json, "/netmon/ip/timeline/1/100")
+	.defer(d3.json, "/netmon/ip/ttl")
+	.defer(d3.json, "/netmon/ip/flags")
 	.await(makeGraphs);
 
 function makeGraphs(error, node, matrix, receiving, sending, ttl, flags)
@@ -44,7 +44,7 @@ function ReBinningSend()
 
 	var binningValue = parseInt(document.getElementById("binningValue").value); 
 	queue()
-		.defer(d3.json, "/ip/timeline/1/"+binningValue)
+		.defer(d3.json, "/netmon/ip/timeline/1/"+binningValue)
 		.await(showBinningTimelineSend);
 }
 
@@ -58,7 +58,7 @@ function ReBinningRec()
 
 	var binningValue = parseInt(document.getElementById("binningValue").value); 
 	queue()
-		.defer(d3.json, "/ip/timeline/0/"+binningValue)
+		.defer(d3.json, "/netmon/ip/timeline/0/"+binningValue)
 		.await(showBinningTimelineRec);
 }
 

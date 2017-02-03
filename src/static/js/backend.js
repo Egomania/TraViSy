@@ -1,5 +1,5 @@
 queue()
-	.defer(d3.json, "/backend/paket")
+	.defer(d3.json, "/netmon/backend/paket")
 	.await(makeGraphs);
 
 function makeGraphs(error, pkt) {

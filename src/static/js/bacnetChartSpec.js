@@ -1,5 +1,5 @@
 queue()
-	.defer(d3.json, "/bacnet/WhoIs")
+	.defer(d3.json, "/netmon/bacnet/WhoIs")
 	.await(makeGraphs);
 
 function makeGraphs(error, whois ) {
