@@ -43,21 +43,24 @@ to enable dpkt to read from pipes
 
 #### Certificates
 
-Place server certificates into /src/cert (.key and .pem)
+Place server certificate and key into ```/src/cert``` (.key and .pem).
+
+```openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout server.key -out server.pem```
 
 #### Configuration File
 
 Adapt configs if needed.
+See ```src/config/``` Folder, configuration of overall app is done in app.ini, configuration of modules is done in seperate .ini-files.
 
 ## Execution
 
- * service rabbitmq-server start
- * celery -A "app.celery" worker (sudo required)
- * python app.py
+ * ```service rabbitmq-server start```
+ * ```celery -A "app.celery" worker (sudo required)```
+ * ```python2 app.py```
 
 ## Add own modules
 
-Place .py file into /modules folder.
-See test.py for minimal workin example.
+Place .py file into ```/modules``` folder.
+See ```test.py``` for minimal working example.
 
 
