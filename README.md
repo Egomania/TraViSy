@@ -47,10 +47,17 @@ Place server certificates into /src/cert (.key and .pem)
 
 #### Configuration File
 
-Rename app_example.ini into app.ini. Adapt if needed.
+Adapt configs if needed.
 
 ## Execution
 
  * service rabbitmq-server start
  * celery -A "app.celery" worker (sudo required)
  * python app.py
+
+## Add own modules
+
+Place .py file into /modules folder.
+See test.py for minimal workin example.
+
+
