@@ -5,8 +5,6 @@
 ### System specific (apt-get install) - Ubuntu 15.10 Repo Version:
 
  * python >= 2.7.9
- * rabbitmq-server
- * mongodb
  * python-virtualenv
  * python-dev
  * python-libpcap
@@ -31,6 +29,13 @@
  * pylibpcap
  * Flask-WeasyPrint
  * pcapy
+ * pydbus
+
+### Required Services 
+
+ * rabbitmq-server
+ * mongodb
+
 
 ### Other preparation
 
