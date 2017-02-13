@@ -52,11 +52,21 @@ Place server certificate and key into ```/src/cert``` (.key and .pem).
 Adapt configs if needed.
 See ```src/config/``` Folder, configuration of overall app is done in app.ini, configuration of modules is done in seperate .ini-files.
 
+## Service Integration
+
+TraViSy is capable of internal service management.
+If services for modules are needed, they have to be enabled in advance.
+Services managed by TraViSy are specified in the configuration file ```app.ini```
+
+### NetMon Module
+
+ * ```systemctl enable rabbitmq-server```
+ * ```systemctl enable mongod```
+
 ## Execution
 
- * ```service rabbitmq-server start```
- * ```celery -A "app.celery" worker (sudo required)```
- * ```python2 app.py```
+ * ```sudo celery -A "app.celery" worker``` (sudo needed for capturing on interfaces)
+ * ```sudo python2 app.py``` (sudo needed for service management)
 
 ## Add own modules
 
