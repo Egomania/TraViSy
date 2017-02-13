@@ -13,6 +13,7 @@ import os
 import ConfigParser
 import imp
 import glob
+from pydbus import SystemBus
 
 #security stuff
 import ssl
@@ -24,6 +25,10 @@ from kombu import serialization
 ################# GLOABEL STUFF ########################
 
 # Global vars
+
+bus = SystemBus()
+systemd = bus.get(".systemd1")
+manager = systemd[".Manager"]
 
 ConfigDefaults = {'SERVER_PEM': './cert/server.pem', 'SERVER_KEY': './cert/server.key', 'UPLOAD_FOLDER': './uploads', 'PORT':'443'}
 
@@ -41,6 +46,7 @@ ALLOWED_EXTENSIONS = set(['pcap'])
 
 PORT_USED = Config.getint('AppSetting', 'PORT')
 
+REQUIRED_MODULES = [elem.strip() for elem in Config.get('AppSetting', 'SERVICES').split(',')]
 
 # app setup
 
@@ -49,6 +55,7 @@ app = Flask(__name__)
 modules = glob.glob("modules/*.py")
 moduleNames = [ os.path.basename(f)[:-3] for f in modules if os.path.isfile(f) and 'init' not in f]
 
+# load application imports
 imports = []
 
 for elem in moduleNames:
@@ -61,6 +68,7 @@ serialization.registry._decoders.pop("application/x-python-serialize")
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# do a very dirty hack and generate needed base.html file (insert module name and link)
 with open("templates/baseGen.html", "r") as f:
     with open("templates/base.html", 'w') as newF:
         for line in f.readlines():
@@ -70,7 +78,22 @@ with open("templates/baseGen.html", "r") as f:
                 for elem in imports:
                     newLine = '<a class="navbar-brand" href="/' + elem[1] + '">' + elem[0] + '</a> \n'
                     newF.write(newLine)
-			
+
+# check if required services are up
+
+REQUIRED_MODULES_UNIT_NAMES = {}
+for elem in REQUIRED_MODULES:
+    REQUIRED_MODULES_UNIT_NAMES[elem] = None
+    for unit in manager.ListUnits():
+        if elem in unit[0]:
+            unitName = unit[0]
+            REQUIRED_MODULES_UNIT_NAMES[elem] = unitName
+            if 'loaded' in unit[2] and 'active' in unit[3] and 'running' in unit[4]:
+                print ('[OK] ' + unitName + ' running')
+            else:
+                print ('Start Service ' + unitName)
+                systemd.StartUnit(unitName, 'fail')
+
 # celery setup
 
 def make_celery(app):
@@ -87,7 +110,7 @@ def make_celery(app):
 
 app.config.update(
     CELERY_BROKER_URL='amqp://',
-    CELERY_RESULT_BACKEND='amqp://',
+    CELERY_RESULT_BACKEND='rpc://',
     CELERY_ACCEPT_CONTENT=['application/json'],
     CELERY_TASK_SERIALIZER='json',
     CELERY_RESULT_SERIALIZER='json'
@@ -106,6 +129,14 @@ def before_first_request():
 @app.route("/")
 def index():
     return render_template("index.html", imps=imports)
+
+@app.route("/backend")
+def backend():
+    return render_template("/backend/backend.html")
+
+@app.route("/backend/serviceoverview")
+def backend_serviceoverview():
+    return render_template("/backend/serviceOverview.html")
 
 
 ########################################### MAIN ###########################################

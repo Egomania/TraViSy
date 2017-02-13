@@ -9,7 +9,7 @@ name = 'test'
 description = 'test module'
 
 module = Blueprint(name, __name__, template_folder='templates')
-celery = celery.Celery('tasks', backend='amqp://', broker='amqp://')
+celery = celery.Celery('tasks', backend='rpc://', broker='amqp://')
 
 @module.route('/' + name)
 def test():

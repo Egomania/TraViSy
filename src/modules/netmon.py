@@ -48,7 +48,7 @@ name = 'netmon'
 description = 'Network Monitoring and Analysis Module'
 
 module = Blueprint(name, __name__, template_folder='templates', static_folder='static')
-celery = celery.Celery('tasks', backend='amqp://', broker='amqp://')
+celery = celery.Celery('tasks', backend='rpc://', broker='amqp://')
 
 # Global vars
 
